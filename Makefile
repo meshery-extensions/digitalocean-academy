@@ -35,7 +35,7 @@ check-deps:
 	@echo "Dependencies check passed."
 
 ## Local: Build site for local consumption
-build: check-deps
+build: check-deps check-go
 	npm run dev:build
 
 ## Local: Build and run site locally with draft and future content enabled.
@@ -47,9 +47,9 @@ serve: check-go check-deps
 	npm run dev:serve
 	
 ## Empty build cache and run on your local machine.
-clean: check-deps
-	npm run dev:clean
-	make site
+clean:
+	npm run clean
+	$(MAKE) site
 
 ## ------------------------------------------------------------
 ----MAINTENANCE: Show help for available targets
@@ -62,4 +62,4 @@ check-go:
 ## Update the academy-theme package to latest version
 theme-update: check-deps
 	echo "Updating to latest academy-theme..." && \
-	npm run dev:theme-update
+	npm run update:theme

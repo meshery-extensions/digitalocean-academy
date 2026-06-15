@@ -10,11 +10,10 @@
   "bugs": "https://github.com/google/docsy-example/issues",
   "spelling": "cSpell:ignore docsy hugo htmltest precheck postbuild rtlcss -",
   "scripts": {
-    "dev:build": "npm run _hugo-dev",
-    "dev:clean": "npm run _hugo",
+    "dev:build": "npm run _hugo-dev --",
     "dev:site": "npm run _hugo-dev -- server",
     "dev:serve": "npm run _hugo-dev -- server --watch=false",
-    "dev:theme-update": "hugo mod get github.com/layer5io/academy-theme",
+    "update:theme": "hugo mod get github.com/layer5io/academy-theme",
     "_build": "npm run _hugo-dev --",
     "_check:links": "echo IMPLEMENTATION PENDING for check-links; echo",
     "_hugo": "hugo --cleanDestinationDir",
@@ -37,7 +36,7 @@
     "test": "npm run check:links",
     "update:dep": "npm install --save-dev autoprefixer@latest postcss-cli@latest",
     "update:hugo": "npm install --save-dev --save-exact hugo-extended@latest",
-    "update:pkgs": "npm exec npm-check-updates -u"
+    "update:pkgs": "npx npm-check-updates -u"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",
