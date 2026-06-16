@@ -1,12 +1,20 @@
-[![Meshery Academy](https://img.shields.io/badge/Meshery-Academy-00B39F?style=flat-square&logo=meshery&logoColor=white)](https://cloud.meshery.io/academy)
+<div align="center">
+  <img src=".github/assets/images/meshery-logo-dark-text-side.svg" width="70%" /> <br />
+  <img src="https://img.shields.io/badge/Meshery-Academy-00B39F?style=flat-square&logo=meshery&logoColor=white" />
+<img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/meshery-extensions/meshery-academy">
 
-![Meshery-Logo](.github/assets/images/meshery-logo-dark-text-side.svg)
+</div>
 
-# DigitalOcean Academy
+# Meshery Academy for DigitalOcean
 
-DigitalOcean Academy is the official learning-content repository for DigitalOcean on the [Meshery Academy](https://cloud.meshery.io/academy) platform. It hosts structured learning paths, challenges, certifications, and Meshery infrastructure designs — helping engineers learn how to manage cloud-native infrastructure with Meshery on DigitalOcean.
+This repo is the content repository for the Meshery Academy for DigitalOcean, which can be run stand-alone and alongside your Meshery deployment(s) for an integrated learning experience. This academy contains learning paths, challenges, and certifications, helping engineers learn how to manage AI services and infrastructure with Meshery on DigitalOcean.
 
 🔗 **Live site:** <https://digitalocean.layer5.io/academy>
+
+**[Academies as Meshery Extensions](https://docs.meshery.io/extensions/academies/)**
+
+Academies are modular, Git-native learning management systems (LMS), which can be run stand-alone and/or as an extension of your Meshery deployment(s) for an integrated learning experience. Academies emphasize hands-on, cloud-native education (AI, Cloud, Kubernetes, CNCF projects, configuration and infrastructure management) through structured curricula, interactive Labs, embedded visualizations, and verifiable credentials.
+
 
 ---
 
