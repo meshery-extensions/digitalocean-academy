@@ -14,31 +14,44 @@
 
 include .github/build/Makefile.core.mk
 include .github/build/Makefile.show-help.mk
-
 #----------------------------------------------------------------------------
 # Academy
-# ---------------------------------------------------------------------------
-.PHONY: setup build site clean check-go theme-update
-
+#----------------------------------------------------------------------------
 ## ------------------------------------------------------------
 ----LOCAL_BUILDS: Show help for available targets
 	
 ## Local: Install site dependencies
 setup:
-	 npm i
+	npm install
+
+## Local: Build and run site locally with draft and future content enabled.
+site: check-go
+	hugo server -D -F
 
 ## Local: Build site for local consumption
 build:
 	hugo build
 
-## Local: Build and run site locally with draft and future content enabled.
-site: check-go
-	hugo server -D -F
-	
+## Build site for local consumption
+build-preview:
+	hugo --baseURL=$(BASEURL)
+
 ## Empty build cache and run on your local machine.
-clean: 
+clean:
 	hugo --cleanDestinationDir
+	make setup
 	make site
+
+## Fix Markdown linting issues
+lint-fix:
+	@echo "Checking for markdownlint-cli2..."
+	@command -v markdownlint-cli2 > /dev/null || { \
+		echo "markdownlint-cli2 not found. Attempting to install globally..."; \
+		command -v npm > /dev/null || { echo "npm is not installed. Please install Node.js/npm and re-run 'make lint-fix'."; exit 1; }; \
+		npm install -g markdownlint-cli2; \
+	}
+	@echo "Running markdownlint-cli2 --fix..."
+	@markdownlint-cli2 --fix "**/*.md" "#node_modules" "#public" "#resources"
 
 ## ------------------------------------------------------------
 ----MAINTENANCE: Show help for available targets
@@ -52,3 +65,5 @@ check-go:
 theme-update:
 	echo "Updating to latest academy-theme..." && \
 	hugo mod get github.com/layer5io/academy-theme
+
+.PHONY: setup build build-preview site clean lint-fix check-go theme-update
