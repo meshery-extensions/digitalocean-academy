@@ -74,8 +74,12 @@ The site will be available at `http://localhost:1313/academy/` (or the port show
 | Command | Description |
 |---------|-------------|
 | `make setup` | Install npm dependencies |
+| `make site`  | Build and run site locally with draft and future content enabled |
 | `make build` | Build the site for production |
+| `make build-preview` | Build site for preview draft and future content enabled (honors `BASEURL`) |
 | `make clean` | Clear build cache and restart the dev server |
+| `make lint-fix` | Fix Markdown linting issues with `markdownlint-cli2` |
+| `make check-go` | Verify Go is installed locally |
 | `make theme-update` | Update the `academy-theme` Hugo module to the latest version |
 
 ---
