@@ -103,6 +103,8 @@ spec:
       targetPort: 8000
 ```
 
+{{< meshery-design-embed src="../embedded-design-vllm-inference-stack.js" id="embedded-design-c9dcbd0b-b39d-4584-846c-bc2c97a2df4f" size="full" >}}
+
 Save the Design to the **Catalog** so it becomes a reusable template, and (optionally) back it with
 GitHub for versioning and pull-request previews.
 
