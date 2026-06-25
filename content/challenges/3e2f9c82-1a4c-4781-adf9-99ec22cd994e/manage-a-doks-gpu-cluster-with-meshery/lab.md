@@ -57,7 +57,7 @@ keeps this view in sync as the cluster changes.
 > **Shortcut:** the academy ships this exact stack as an importable design. To skip straight to
 > deploying, import it and open it in Kanvas:
 >
-> {{< meshery-design-embed src="https://kanvas.new/embed.js" id="embedded-design-vllm-inference-stack" size="full" >}}
+> {{< meshery-design-embed src="https://kanvas.new/embed.js" id="b34bfc48-555a-44eb-8b80-08dcdefe6987" size="full" >}}
 >
 > The companion `designs/qdrant-vector-db.yaml` and `designs/gpu-observability-stack.yaml` are
 > available the same way. To learn the authoring workflow, build it yourself below.
