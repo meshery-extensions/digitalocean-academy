@@ -1,6 +1,12 @@
 baseURL: http://localhost:9876/academy/
 title: Example Academy
 canonifyurls: true
+ignoreLogs: ['warning-goldmark-raw-html']
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 
 params:
   academy:
