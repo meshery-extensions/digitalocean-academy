@@ -12,9 +12,10 @@ on:
       token:
         description: 'Bearer token'
         required: true
-      academy-name: 
+      academy-name:
+        description: 'Name of the Academy represented by this repo'
         required: false
-        default: "Digital Ocean Academy"
+        default: 'Digital Ocean Academy'
         type: string
       version:
         description: 'Module version'
@@ -27,19 +28,29 @@ jobs:
 
     steps:
       - name: Checkout site
-        uses: actions/checkout@v5
-
-      - name: Setup Hugo Extended
-        uses: peaceiris/actions-hugo@v2
+        uses: actions/checkout@v6
         with:
-          hugo-version: '0.158.0'
-          extended: true
+          fetch-depth: 0
+
+      # Required: academy-theme is a Hugo module, so the build needs Go.
+      # 'make build-production' runs check-go and fails fast without it.
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: make setup
 
       - name: Run production build test
-        run: make build
+        run: make build-production
 
       - name: Publish to Cloud Academy
         id: academy
@@ -47,7 +58,7 @@ jobs:
         with:
           orgId: ${{ github.event.inputs.orgId || secrets.ACADEMY_ORG_ID }}
           token: ${{ github.event.inputs.token || secrets.PROVIDER_TOKEN }}
-          academy-name: "Digital Ocean Academy"
+          academy-name: ${{ github.event.inputs.academy-name || 'Digital Ocean Academy' }}
           version: ${{ github.event.inputs.version != '' && github.event.inputs.version || github.ref_name }}
 
       - name: Show response
