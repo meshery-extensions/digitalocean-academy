@@ -81,11 +81,7 @@ import them, customize, and publish your own versions:
 | [`qdrant-vector-db.yaml`](https://github.com/layer5io/digitalocean-academy/blob/master/designs/qdrant-vector-db.yaml) | A Qdrant vector database backed by DigitalOcean block storage |
 | [`gpu-observability-stack.yaml`](https://github.com/layer5io/digitalocean-academy/blob/master/designs/gpu-observability-stack.yaml) | The NVIDIA DCGM exporter for GPU metrics |
 
-```bash
-mesheryctl design import \
-  -f https://raw.githubusercontent.com/layer5io/digitalocean-academy/master/designs/vllm-inference-stack.yaml \
-  -s "Kubernetes Manifest"
-```
+{{< meshery-design-embed src="/js/vllm-inference-stack.js" id="embedded-design-0eb9e246-ad94-4cd6-9c0b-e4cc0851536e" size="full" >}}
 
 After importing, open the design in Kanvas, then **Publish to Catalog** to share it with your team.
 

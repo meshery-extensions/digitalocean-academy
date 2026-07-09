@@ -57,11 +57,7 @@ keeps this view in sync as the cluster changes.
 > **Shortcut:** the academy ships this exact stack as an importable design. To skip straight to
 > deploying, import it and open it in Kanvas:
 >
-> ```bash
-> mesheryctl design import \
->   -f https://raw.githubusercontent.com/layer5io/digitalocean-academy/master/designs/vllm-inference-stack.yaml \
->   -s "Kubernetes Manifest"
-> ```
+> {{< meshery-design-embed src="/js/vllm-inference-stack.js" id="embedded-design-0eb9e246-ad94-4cd6-9c0b-e4cc0851536e" size="full" >}}
 >
 > The companion `designs/qdrant-vector-db.yaml` and `designs/gpu-observability-stack.yaml` are
 > available the same way. To learn the authoring workflow, build it yourself below.
