@@ -2727,7 +2727,13 @@ This page shows how each shortcode behaves when rendered.
 This image was processed from a page resource using the Docsy `imgproc` shortcode.
 &lt;/p&gt;
 &lt;/figcaption&gt;
-&lt;/figure&gt;</description></item><item><title>PDF</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/hextra/pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/hextra/pdf/</guid><description>&lt;p&gt;Embeds a PDF file in a responsive iframe.&lt;/p&gt;
+&lt;/figure&gt;</description></item><item><title>Org ID</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/org-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/org-id/</guid><description>&lt;p&gt;The &lt;code&gt;org-id&lt;/code&gt; shortcode renders the organization UUID extracted from the current page&amp;rsquo;s content path.&lt;/p&gt;
+&lt;p&gt;Academy content is organized as &lt;code&gt;&amp;lt;type&amp;gt;/&amp;lt;orgID&amp;gt;/...&lt;/code&gt; (relative to the content directory) where &lt;code&gt;&amp;lt;orgID&amp;gt;&lt;/code&gt; is a UUID at path segment index 1. When the page is within such a structure, the shortcode outputs the UUID inline as a &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; element.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{&amp;lt; org-id &amp;gt;}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This demo page is not under a UUID-named directory, so the shortcode renders the fallback text. When used within a &lt;code&gt;content/learning-paths/&amp;lt;uuid&amp;gt;/...&lt;/code&gt; path, it will output the organization&amp;rsquo;s UUID.&lt;/p&gt;</description></item><item><title>PDF</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/hextra/pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/hextra/pdf/</guid><description>&lt;p&gt;Embeds a PDF file in a responsive iframe.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{&amp;lt; hextra/pdf &amp;#34;sample.pdf&amp;#34; &amp;gt;}}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Parameters:&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
@@ -8442,7 +8448,7 @@ It supports &lt;strong&gt;Markdown&lt;/strong&gt; cells, code cells with syntax 
 
 
 &lt;div class="md__image"&gt;
- &lt;img id="[48 53 378 318 345 297]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/examples/images/exoscale-icon.png" onclick="openModal(this.id)" alt="Rendered tab image" 
+ &lt;img id="[462 182 176 406 97 278]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/examples/images/exoscale-icon.png" onclick="openModal(this.id)" alt="Rendered tab image" 
  class="md-image-responsive" /&gt;
 &lt;/div&gt;&lt;/p&gt;
 
@@ -9064,7 +9070,7 @@ visibility, and repeatable performance measurement — all from a single pane of
 
 
 &lt;div class="md__image"&gt;
- &lt;img id="[384 229 305 291 83 289]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/assets/icons/layer5-academy-icon.svg" onclick="openModal(this.id)" alt="Spruce shoot close-up" 
+ &lt;img id="[163 368 160 439 18 177]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/assets/icons/layer5-academy-icon.svg" onclick="openModal(this.id)" alt="Spruce shoot close-up" 
  class="md-image-responsive" /&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Large images should always scale down and fit in the content container.&lt;/p&gt;
@@ -9076,7 +9082,7 @@ visibility, and repeatable performance measurement — all from a single pane of
 
 
 &lt;div class="md__image"&gt;
- &lt;img id="[474 242 308 92 447 318]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/assets/icons/layer5-academy-icon.svg" onclick="openModal(this.id)" alt="Large spruce shoot photo" 
+ &lt;img id="[185 16 281 62 289 61]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/assets/icons/layer5-academy-icon.svg" onclick="openModal(this.id)" alt="Large spruce shoot photo" 
  class="md-image-responsive" /&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;The photo above of the Spruce Picea abies shoot with foliage buds: Bjørn Erik Pedersen, CC-BY-SA.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Tables</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/markdown/tables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/markdown/tables/</guid><description>&lt;table&gt;
