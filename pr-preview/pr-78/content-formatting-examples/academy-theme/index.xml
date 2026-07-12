@@ -205,7 +205,7 @@ This block uses the academy-theme implementation of `pageinfo`. It is useful for
 &lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The icon renders inline: 
 
- 
+ &lt;svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"&gt;&lt;path d="M32 4.287L0 59.713h4.44L32 12.25v7.8L9.033 59.713h4.593L32 28.02v7.962l-13.78 23.73h4.593L32 43.943v7.8l-4.593 7.962H64z" fill="#da291c"/&gt;&lt;/svg&gt;
 &lt;/p&gt;
 &lt;p&gt;To add your own SVG icons, place &lt;code&gt;.svg&lt;/code&gt; files in the &lt;code&gt;assets/icons/&lt;/code&gt; directory.&lt;/p&gt;</description></item><item><title>Version</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/version/</guid><description>&lt;p&gt;The &lt;code&gt;version&lt;/code&gt; shortcode renders a styled version label.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{&amp;lt; version color=&amp;#34;Theme version label:&amp;#34; &amp;gt;}} academy-theme sample output{{&amp;lt; /version &amp;gt;}}
@@ -7199,68 +7199,7 @@ This block uses the academy-theme implementation of `pageinfo`. It is useful for
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{% lab-intro %}}
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Welcome to this hands-on lab. In this exercise, you will learn how to deploy a cloud native application using Kubernetes. By the end of this lab, you will be able to create a cluster, deploy workloads, and expose services.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{% /lab-intro %}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Meshery Design Embed</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/meshery-design-embed/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/meshery-design-embed/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{&amp;lt; meshery-design-embed
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; id=&amp;#34;embedded-design-c811e9f4-2522-4eb6-b775-7475545356d8&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src=&amp;#34;./embedded-design-deploy-meshery-using-meshery.js&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&amp;gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;style&gt;
-.meshery-embed-container {
- border: 1px solid #eee;
- border-radius: 4px;
- margin: 1rem auto;
- box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-.meshery-embed-container.full {
- width: 80%;
- height: 30rem;
-}
-.meshery-embed-container.half {
- width: 50%;
- height: 25rem;
-}
-.meshery-embed-container .cy-container {
- width: 100%;
- height: 100%;
-}
-
-&lt;/style&gt;
-
-
-&lt;div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;"&gt;
-&lt;div
- id="embedded-design-c811e9f4-2522-4eb6-b775-7475545356d8"class="meshery-embed-container full"&gt;&lt;/div&gt;
-
-&lt;a href="https://cloud.layer5.io/catalog/content/design/c811e9f4-2522-4eb6-b775-7475545356d8" target="_blank" rel="noopener noreferrer"&gt;
- Open Design
-&lt;/a&gt;
-
-&lt;/div&gt;
-
-
-&lt;script src="./embedded-design-deploy-meshery-using-meshery.js" type="module"&gt;&lt;/script&gt;</description></item><item><title>Embedded Design</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/embedded-design/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/embedded-design/</guid><description>&lt;p&gt;The &lt;code&gt;meshery-design-embed&lt;/code&gt; shortcode renders an interactive Meshery design diagram.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Meshery Design Embed</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/meshery-design-embed/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/meshery-design-embed/</guid><description>&lt;p&gt;The &lt;code&gt;meshery-design-embed&lt;/code&gt; shortcode renders an interactive Meshery design diagram.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{{&amp;lt; meshery-design-embed
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; id=&amp;#34;embedded-design-c811e9f4-2522-4eb6-b775-7475545356d8&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src=&amp;#34;./embedded-design-deploy-meshery-using-meshery.js&amp;#34;
@@ -7322,7 +7261,7 @@ This block uses the academy-theme implementation of `pageinfo`. It is useful for
 &lt;/div&gt;
 
 
-&lt;script src="../embedded-design-deploy-meshery-using-meshery.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="./embedded-design-deploy-meshery-using-meshery.js" type="module"&gt;&lt;/script&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href="https://docs.layer5.io/kanvas/designer/embedding-designs/"&gt;Learn more&lt;/a&gt; about embedded designs.&lt;/p&gt;</description></item><item><title>Local Video</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/local-video/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-78/content-formatting-examples/academy-theme/local-video/</guid><description>&lt;p&gt;The &lt;code&gt;local-video&lt;/code&gt; shortcode embeds an HTML5 &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt; player for a locally hosted video file.&lt;/p&gt;
