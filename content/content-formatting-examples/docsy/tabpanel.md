@@ -43,7 +43,7 @@ Tabs help organize related content.
 
 Here is an example image:
 
-![Spruce shoot example image](/examples/images/layer5-academy-icon.svg)
+![Spruce shoot example image](/academy/examples/images/layer5-academy-icon.svg)
 
 {{< /tab >}}
 

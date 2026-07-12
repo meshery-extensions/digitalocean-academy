@@ -5,7 +5,7 @@ description: A collection of examples for formatting content, from basic Markdow
 draft: true
 ---
 
-The Layer5 Academy platform supports a wide range of shortcodes for enriching your learning content. Shortcodes are reusable template snippets you invoke in Markdown files to generate HTML output. They come from four sources:
+The Meshery Academy platform supports a wide range of shortcodes for enriching your learning content. Shortcodes are reusable template snippets you invoke in Markdown files to generate HTML output. They come from four sources:
 
 1. **Academy Theme** — custom shortcodes built specifically for the Academy platform.
 2. **Hextra** — shortcodes ported from the [Hextra](https://imfing.github.io/hextra/docs/guide/shortcodes/) Hugo theme, namespaced under `hextra/` to avoid conflicts.
