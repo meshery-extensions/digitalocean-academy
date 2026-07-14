@@ -29,7 +29,7 @@ This installs Prometheus, Alertmanager, Grafana, and a set of default dashboards
 
 To expose **GPU** metrics, you also need the NVIDIA DCGM exporter running on the GPU nodes. The academy ships an importable design for it at [`designs/gpu-observability-stack.yaml`](https://github.com/layer5io/digitalocean-academy/blob/master/designs/gpu-observability-stack.yaml) — import it through Meshery and deploy it to the cluster:
 
-{{< meshery-design-embed src="/js/gpu-observability-stack.js" id="embedded-design-baebd8f9-ad6e-42d9-ad55-6f9879c2ccf6" size="full" >}}
+{{< meshery-design-embed src="./gpu-observability-stack.js" id="embedded-design-baebd8f9-ad6e-42d9-ad55-6f9879c2ccf6" size="full" >}}
 
 The exporter publishes metrics such as `DCGM_FI_DEV_GPU_UTIL` on port 9400 for Prometheus to scrape.
 
