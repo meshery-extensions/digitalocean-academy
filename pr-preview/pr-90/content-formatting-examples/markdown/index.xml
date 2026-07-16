@@ -55,7 +55,7 @@
 
 
 &lt;div class="md__image"&gt;
- &lt;img id="[174 253 55 182 394 380]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/academy/examples/images/deploy.png" onclick="openModal(this.id)" alt="Spruce shoot close-up" 
+ &lt;img id="[430 121 170 278 286 301]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/academy/examples/images/deploy.png" onclick="openModal(this.id)" alt="Spruce shoot close-up" 
  class="md-image-responsive" /&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Large images should always scale down and fit in the content container.&lt;/p&gt;
@@ -67,7 +67,7 @@
 
 
 &lt;div class="md__image"&gt;
- &lt;img id="[92 444 73 328 49 320]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/academy/examples/images/kubernetes-icon.svg" onclick="openModal(this.id)" alt="Large spruce shoot photo" 
+ &lt;img id="[138 431 167 122 370 466]" src="https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/academy/examples/images/kubernetes-icon.svg" onclick="openModal(this.id)" alt="Large spruce shoot photo" 
  class="md-image-responsive" /&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;The photo above of the Spruce Picea abies shoot with foliage buds: Bjørn Erik Pedersen, CC-BY-SA.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Tables</title><link>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/content-formatting-examples/markdown/tables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://meshery-extensions.github.io/digitalocean-academy/pr-preview/pr-90/content-formatting-examples/markdown/tables/</guid><description>&lt;table&gt;
