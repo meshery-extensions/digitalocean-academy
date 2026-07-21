@@ -63,6 +63,9 @@ from gradient_adk import entrypoint, RequestContext
 from langgraph.graph import StateGraph
 from typing import TypedDict
 
+# `llm` is your own framework object — e.g. a LangChain chat model
+# pointed at DigitalOcean Serverless Inference (configured below).
+
 
 class State(TypedDict):
     input: str
@@ -71,8 +74,8 @@ class State(TypedDict):
 
 async def llm_call(state: State) -> State:
     # This node execution is automatically traced.
-    response = await llm.ainvoke(state["input"])
-    state["output"] = response
+    message = await llm.ainvoke(state["input"])
+    state["output"] = message.content
     return state
 
 
@@ -87,7 +90,7 @@ async def main(input: dict, context: RequestContext):
     return result["output"]
 ```
 
-Point the model call at DigitalOcean Serverless Inference to stay within one platform — the OpenAI-compatible base URL `https://inference.do-ai.run/v1` and a model slug such as `llama3.3-70b-instruct` work exactly as they did in the *AI Foundations* path.
+Point the model call at DigitalOcean Serverless Inference to stay within one platform: use the OpenAI-compatible endpoint `https://inference.do-ai.run/v1` with a model slug from your catalog (look them up with `GET /v1/models`, for example `llama3.3-70b-instruct`).
 
 ## Run Locally with Hot Reload
 
@@ -129,7 +132,7 @@ async def main(input: dict, context: RequestContext):
     return await generate_response(f"Context: {docs}")
 ```
 
-Each decorator records the right kind of span — retriever, LLM (with token usage), or tool — so traces read as a meaningful timeline rather than opaque function calls. View them from the CLI with `gradient agent traces` or in the platform's observability UI.
+Each decorator records the right kind of span — retriever, LLM (with token usage), or tool — so traces read as a meaningful timeline rather than opaque function calls. Open the traces UI with `gradient agent traces`. (As above, `llm`, `vector_db`, and `search_docs` here stand in for your own framework objects.)
 
 ## Evaluate Before You Ship
 
@@ -145,16 +148,16 @@ gradient agent evaluate \
 
 Running `gradient agent evaluate` with no flags starts an interactive flow that walks you through the same options. Wire this into CI so no agent change ships without passing your quality bar — the code-first equivalent of the promotion checklist from the *Versioning & Agent Insights* lesson.
 
-## Deploy with One Command
+## Deploy in One Step
 
-When local runs and evaluations look good, deploy to DigitalOcean's managed infrastructure:
+When local runs and evaluations look good, deploy to DigitalOcean's managed infrastructure. Set your Personal Access Token once, then deploy:
 
 ```bash
 export DIGITALOCEAN_API_TOKEN=<your-personal-access-token>
 gradient agent deploy
 ```
 
-There are no servers to provision and no containers to build by hand — the ADK packages the agent and hosts it serverlessly. After deploying, stream runtime logs with `gradient agent logs` and open traces with `gradient agent traces`.
+There are no servers to provision and no containers to build by hand — the ADK packages the agent and hosts it serverlessly. After deploying, stream runtime logs with `gradient agent logs` and open the traces UI with `gradient agent traces`.
 
 ## CLI Reference
 
