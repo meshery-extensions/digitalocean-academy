@@ -12,7 +12,7 @@ Earlier lessons built agents two ways: the **no-code Control Panel** and the **f
 
 The ADK's premise is simple: **bring your agent code, and the platform handles the rest.** You write a normal Python agent; the ADK gives you a local dev loop, automatic tracing, an evaluation runner, and one-command deployment to managed serverless infrastructure.
 
-{{< alert type="info" title="Public Preview" >}}The ADK is in Public Preview. Commands, flags, and packaging may change, and hosting terms during preview differ from general availability — always confirm current pricing and status in the [ADK documentation](https://docs.digitalocean.com/products/gradient-ai-platform/how-to/build-agents-using-adk/).{{< /alert >}}
+{{< alert type="info" title="Public Preview — opt-in required" >}}The ADK is in Public Preview and must be enabled before use: opt in on the **Feature Preview** page in your DigitalOcean account (if you don't see it, ask your team owner to enable it). Commands, flags, packaging, and hosting terms may change during preview — always confirm current status and pricing in the [ADK documentation](https://docs.digitalocean.com/products/gradient-ai-platform/how-to/build-agents-using-adk/).{{< /alert >}}
 
 ## When to Use the ADK
 
@@ -59,12 +59,19 @@ This generates a working project skeleton:
 Every ADK agent exposes a single entrypoint: an `async` function decorated with `@entrypoint` that receives the request `input` and a `RequestContext`, and returns the agent's result. Here is a minimal LangGraph agent — the ADK captures a trace for each node automatically:
 
 ```python
+import os
 from gradient_adk import entrypoint, RequestContext
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph
 from typing import TypedDict
 
-# `llm` is your own framework object — e.g. a LangChain chat model
-# pointed at DigitalOcean Serverless Inference (configured below).
+# `llm` is your own framework object — here, a LangChain chat model pointed
+# at DigitalOcean Serverless Inference. Store the key outside your code.
+llm = ChatOpenAI(
+    base_url="https://inference.do-ai.run/v1",
+    api_key=os.environ["DO_INFERENCE_KEY"],
+    model="llama3.3-70b-instruct",
+)
 
 
 class State(TypedDict):
@@ -90,7 +97,7 @@ async def main(input: dict, context: RequestContext):
     return result["output"]
 ```
 
-Point the model call at DigitalOcean Serverless Inference to stay within one platform: use the OpenAI-compatible endpoint `https://inference.do-ai.run/v1` with a model slug from your catalog (look them up with `GET /v1/models`, for example `llama3.3-70b-instruct`).
+Pointing the model at DigitalOcean Serverless Inference (as above) keeps everything on one platform. It uses the OpenAI-compatible endpoint `https://inference.do-ai.run/v1` with a model slug from your catalog — look them up with `GET /v1/models`. Keep `DO_INFERENCE_KEY` in the environment, never in source.
 
 ## Run Locally with Hot Reload
 
@@ -132,7 +139,9 @@ async def main(input: dict, context: RequestContext):
     return await generate_response(f"Context: {docs}")
 ```
 
-Each decorator records the right kind of span — retriever, LLM (with token usage), or tool — so traces read as a meaningful timeline rather than opaque function calls. Open the traces UI with `gradient agent traces`. (As above, `llm`, `vector_db`, and `search_docs` here stand in for your own framework objects.)
+Each decorator records the right kind of span — retriever, LLM (with token usage), or tool — so traces read as a meaningful timeline rather than opaque function calls. Open the traces UI with `gradient agent traces`. (As above, `llm`, `vector_db`, and `search_knowledge_base` stand in for your own framework objects.)
+
+{{< alert type="warning" title="Traces can contain sensitive data" >}}Captured traces include LLM request and response payloads, streaming chunks, and full exception details — so they may hold user input, retrieved documents, or PII. Do not log secrets or sensitive personal data into agent inputs or outputs you expect to trace, and review the platform's trace access and retention controls before enabling tracing on production workloads.{{< /alert >}}
 
 ## Evaluate Before You Ship
 
