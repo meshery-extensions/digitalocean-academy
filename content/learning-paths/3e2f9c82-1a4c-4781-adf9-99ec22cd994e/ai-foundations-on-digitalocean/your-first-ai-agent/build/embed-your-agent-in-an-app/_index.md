@@ -8,11 +8,11 @@ weight: 4
 
 ## Overview
 
-A published Gradient agent exposes an OpenAI-compatible `/v1/chat/completions` endpoint. Any application that can make HTTP requests can call it. This lesson shows two concrete integration patterns: a Python backend service and a browser-based JavaScript chat widget.
+A published Gradient agent exposes an OpenAI-compatible `/api/v1/chat/completions` endpoint. Any application that can make HTTP requests can call it. This lesson shows two concrete integration patterns: a Python backend service and a browser-based JavaScript chat widget.
 
 ## Prerequisites
 
-- A published agent with its endpoint URL and an agent access key.
+- A published agent with its endpoint URL and an endpoint access key.
 - Environment variables set:
 
 ```bash
@@ -67,7 +67,7 @@ For a browser-based chat widget, use the `fetch` API directly:
 
 ```js
 const AGENT_ID = "<your-agent-id>";
-const AGENT_KEY = "<your-agent-access-key>"; // load from env in production
+const AGENT_KEY = "<your-endpoint-access-key>"; // load from env in production
 const BASE_URL = `https://${AGENT_ID}.agents.do-ai.run/api/v1/chat/completions`;
 
 async function sendMessage(userText, history = []) {
@@ -99,7 +99,7 @@ console.log(reply);
 console.log(reply);
 ```
 
-**Important**: never expose your agent access key in client-side browser code in production. Route agent calls through a backend that holds the key and proxies requests from the browser.
+**Important**: never expose your endpoint access key in client-side browser code in production. Route agent calls through a backend that holds the key and proxies requests from the browser.
 
 ## Production Considerations
 

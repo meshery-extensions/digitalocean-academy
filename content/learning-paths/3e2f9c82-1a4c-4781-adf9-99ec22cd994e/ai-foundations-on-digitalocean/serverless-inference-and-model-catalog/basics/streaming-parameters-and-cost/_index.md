@@ -92,7 +92,7 @@ Serverless Inference is billed per token. The `usage` object in every non-stream
 }
 ```
 
-Cost = `total_tokens` × price-per-token for the selected model. Larger models (70B+) have higher per-token rates than smaller models (7B–8B).
+Cost = `total_tokens` × price-per-token for the selected model. Larger models have higher per-token rates than smaller ones.
 
 ## Tips to Control Spend
 

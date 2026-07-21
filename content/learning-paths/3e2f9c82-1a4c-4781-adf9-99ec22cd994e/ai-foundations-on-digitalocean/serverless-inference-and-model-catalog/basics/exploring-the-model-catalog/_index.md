@@ -17,11 +17,11 @@ The catalog is organized by model family and provider:
 | Provider | Model Families | Best For |
 |---|---|---|
 | Meta | Llama 3.3, Llama 4 | General purpose, reasoning, coding |
-| OpenAI | GPT series, o-series, GPT-OSS (open-weight) | Frontier reasoning and multimodal; GPT-OSS for low-cost open-weight tasks |
+| OpenAI | GPT series, GPT-OSS (open-weight) | Frontier reasoning and multimodal; GPT-OSS for low-cost open-weight tasks |
 | Anthropic | Claude (Sonnet, Opus, Haiku) | Frontier reasoning, long context, code |
-| DeepSeek | DeepSeek V-series, R1 distills | Reasoning, cost-efficient generation |
+| DeepSeek | DeepSeek V-series | Reasoning, cost-efficient generation |
 | Alibaba (Qwen) | Qwen 3.x | Multilingual, math, coding |
-| Mistral AI | Mistral, Ministral | Fast inference, multilingual, instruction-following |
+| Mistral AI | Mistral | Fast inference, multilingual, instruction-following |
 
 The catalog evolves quickly — new models are added and older ones retired regularly, so always confirm the current list with the `/v1/models` endpoint shown below. Within each family, models come in multiple sizes. Larger models produce higher-quality outputs but cost more per token and have higher latency. Smaller models are faster and cheaper and are often sufficient for classification, summarization, and simple Q&A.
 

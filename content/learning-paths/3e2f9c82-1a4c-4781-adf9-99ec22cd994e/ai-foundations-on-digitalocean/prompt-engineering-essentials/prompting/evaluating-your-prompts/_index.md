@@ -2,7 +2,7 @@
 type: "page"
 id: "evaluating-your-prompts"
 title: "Evaluating Your Prompts"
-description: "Build a lightweight evaluation harness, define test cases, iterate on prompts before scaling, and understand where a formal Evaluations service fits in."
+description: "Build a lightweight evaluation harness, define test cases, iterate on prompts before scaling, and see how the built-in Gradient Agent Evaluations feature automates this loop."
 weight: 4
 ---
 
@@ -120,6 +120,6 @@ Before moving from 20 test cases to 2,000 — or from a prototype to production 
 
 ## Scaling Up: Gradient Agent Evaluations
 
-Manual test harnesses work well at small scale. When you build agents on the Gradient AI Platform, the built-in **Agent Evaluations** feature automates this same loop: you define test cases from a CSV dataset of prompts, choose from 19 evaluation metrics (factual correctness, instruction adherence, tone, toxicity, and more), and run the suite against your agent after any change to its instructions, knowledge base, functions, or model. Results are pass/fail scores with visualizations so you can track quality over time — the same workflow as this lesson's harness, managed for you. You will use it hands-on in the *Building Agentic AI* learning path.
+Manual test harnesses work well at small scale. When you build agents on the Gradient AI Platform, the built-in **Agent Evaluations** feature automates this same loop: you define test cases from a CSV dataset of prompts, choose from a set of built-in evaluation metrics (factual correctness, instruction adherence, tone, toxicity, and more), and run the suite against your agent after any change to its instructions, knowledge base, functions, or model. Results are pass/fail scores with visualizations so you can track quality over time — the same workflow as this lesson's harness, managed for you. You will use it hands-on in the *Building Agentic AI with Gradient* course.
 
 To learn more, see [How to Evaluate Agent Performance](https://docs.digitalocean.com/products/gradient-ai-platform/how-to/evaluate-agents/).
