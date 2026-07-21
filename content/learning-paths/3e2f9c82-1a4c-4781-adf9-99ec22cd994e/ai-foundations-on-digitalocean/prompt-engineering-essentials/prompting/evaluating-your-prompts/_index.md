@@ -72,7 +72,7 @@ def run_eval(test_cases: list[dict]) -> None:
     passed = 0
     for tc in test_cases:
         response = client.chat.completions.create(
-            model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+            model="openai-gpt-oss-20b",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": tc["input"]},
@@ -118,8 +118,8 @@ Before moving from 20 test cases to 2,000 — or from a prototype to production 
 - No adversarial input in your test set produces a guardrail bypass.
 - Format compliance (JSON validity, word count) is consistent across all cases.
 
-## Looking Ahead: Evaluations Services
+## Scaling Up: Gradient Agent Evaluations
 
-Manual test harnesses work well at small scale. As your application grows, dedicated evaluation services automate this loop, run LLM-as-a-judge scoring, track prompt versions, and surface regressions in CI/CD. DigitalOcean's AI roadmap includes an Evaluations service that integrates directly with Gradient agents — when available it will replace much of the manual harness shown here.
+Manual test harnesses work well at small scale. When you build agents on the Gradient AI Platform, the built-in **Agent Evaluations** feature automates this same loop: you define test cases from a CSV dataset of prompts, choose from 19 evaluation metrics (factual correctness, instruction adherence, tone, toxicity, and more), and run the suite against your agent after any change to its instructions, knowledge base, functions, or model. Results are pass/fail scores with visualizations so you can track quality over time — the same workflow as this lesson's harness, managed for you. You will use it hands-on in the *Building Agentic AI* learning path.
 
-For current tooling, see [docs.digitalocean.com/products/gradient-ai-platform/](https://docs.digitalocean.com/products/gradient-ai-platform/).
+To learn more, see [How to Evaluate Agent Performance](https://docs.digitalocean.com/products/gradient-ai-platform/how-to/evaluate-agents/).

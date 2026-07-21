@@ -30,7 +30,7 @@ Each layer is independently useful, but they compose naturally. A typical produc
 
 **GPU Droplets** sit at the infrastructure layer. They give you raw NVIDIA H100, H200, AMD MI300X, L40S, or RTX Ada GPU compute and are the right choice when you need full control over the runtime environment — fine-tuning, custom inference servers, or specialized frameworks.
 
-**Inference Engine** is the production-grade middle layer: a single OpenAI- and Anthropic-compatible endpoint that unifies Serverless, Batch, and Dedicated inference. You point your existing OpenAI SDK code at `https://inference.do-ai.run/v1`, swap in a DigitalOcean model access key, and you are running against the full Model Catalog of 70+ open-source and frontier models.
+**Inference Engine** is the production-grade middle layer: a single OpenAI- and Anthropic-compatible endpoint that unifies Serverless, Batch, and Dedicated inference. You point your existing OpenAI SDK code at `https://inference.do-ai.run/v1`, swap in a DigitalOcean model access key, and you are running against the full Model Catalog of open-source and frontier models.
 
 ## Why It Matters for Builders
 

@@ -15,7 +15,7 @@ The Gradient AI Platform supports two creation paths: a **no-code Control Panel*
 1. In the DigitalOcean Control Panel, navigate to **AI → Gradient Agents**.
 2. Click **Create Agent**.
 3. Choose a **template** (e.g., Customer Support, Research Assistant, Coding Helper) or select **Blank Agent** for a clean start.
-4. Under **Model**, select a foundation model from the catalog. `meta-llama/Meta-Llama-3.1-70B-Instruct` is a strong default.
+4. Under **Model**, select a foundation model from the catalog. `llama3.3-70b-instruct` is a strong default.
 5. In the **Instructions** field, write the agent's system prompt. Example:
 
    ```
@@ -32,6 +32,14 @@ The Gradient AI Platform supports two creation paths: a **no-code Control Panel*
 
 Use the DigitalOcean API to create agents programmatically. This is the right approach for CI/CD pipelines and infrastructure-as-code workflows.
 
+The API identifies the foundation model by its **UUID**, not its catalog name. Look up model UUIDs with:
+
+```bash
+doctl gradient list-models
+```
+
+You also need the UUID of the project the agent will belong to (`doctl projects list`) and a region (e.g., `tor1`).
+
 Using `curl`:
 
 ```bash
@@ -40,12 +48,11 @@ curl -s -X POST "https://api.digitalocean.com/v2/gen-ai/agents" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "support-bot-v1",
-    "model": {
-      "uuid": "meta-llama/Meta-Llama-3.1-70B-Instruct"
-    },
+    "model_uuid": "<model-uuid-from-list-models>",
     "instruction": "You are a helpful support assistant for a cloud hosting company. Answer questions about billing, Droplets, and DNS only.",
     "description": "Customer support agent for billing and infrastructure topics",
-    "temperature": 0.3
+    "project_id": "<your-project-uuid>",
+    "region": "tor1"
   }'
 ```
 
@@ -57,21 +64,19 @@ import pydo
 
 client = pydo.Client(token=os.environ["DIGITALOCEAN_TOKEN"])
 
-agent = client.gen_ai.create_agent(body={
+agent = client.genai.create_agent(body={
     "name": "support-bot-v1",
-    "model": {
-        "uuid": "meta-llama/Meta-Llama-3.1-70B-Instruct"
-    },
+    "model_uuid": "<model-uuid-from-list-models>",
     "instruction": (
         "You are a helpful support assistant for a cloud hosting company. "
         "Answer questions about billing, Droplets, and DNS only."
     ),
     "description": "Customer support agent for billing and infrastructure topics",
-    "temperature": 0.3,
+    "project_id": "<your-project-uuid>",
+    "region": "tor1",
 })
 
 print("Agent ID:", agent["agent"]["uuid"])
-print("Status:", agent["agent"]["status"])
 ```
 
 Save the returned `uuid` — you will need it to attach knowledge bases, create versions, and build the endpoint URL.

@@ -17,7 +17,7 @@ A published Gradient agent exposes an OpenAI-compatible `/v1/chat/completions` e
 
 ```bash
 export DO_AGENT_ID="your-agent-id"
-export DO_AGENT_KEY="doagent_your_key_here"
+export DO_AGENT_KEY="<your-endpoint-access-key>"
 ```
 
 ## Python Integration

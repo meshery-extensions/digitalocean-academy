@@ -26,7 +26,7 @@ client = OpenAI(
 )
 
 stream = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Explain RAG in three sentences."}],
     stream=True,
 )
@@ -52,7 +52,7 @@ Controls randomness. Range: `0.0` to `2.0`.
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Write a tagline for a cloud company."}],
     temperature=0.9,
 )
@@ -71,7 +71,7 @@ Caps the number of tokens the model generates in the response. This is the prima
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Summarize object storage in one sentence."}],
     max_tokens=60,
     temperature=0.3,
