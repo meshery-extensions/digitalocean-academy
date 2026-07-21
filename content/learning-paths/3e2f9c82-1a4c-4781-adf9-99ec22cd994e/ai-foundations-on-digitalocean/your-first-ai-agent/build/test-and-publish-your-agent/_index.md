@@ -49,7 +49,7 @@ Agent access keys authenticate callers to your published endpoint:
 Store it as an environment variable:
 
 ```bash
-export DO_AGENT_KEY="doagent_your_key_here"
+export DO_AGENT_KEY="<your-endpoint-access-key>"
 ```
 
 Create separate keys for each environment (dev, staging, prod) so you can rotate or revoke them independently.

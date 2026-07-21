@@ -25,7 +25,7 @@ curl -s https://inference.do-ai.run/v1/chat/completions \
   -H "Authorization: Bearer $DO_INFERENCE_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    "model": "openai-gpt-oss-20b",
     "messages": [
       {"role": "system", "content": "You are a helpful assistant."},
       {"role": "user", "content": "What is DigitalOcean Spaces used for?"}
@@ -49,7 +49,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "What is DigitalOcean Spaces used for?"},
@@ -79,7 +79,7 @@ const client = new OpenAI({
 
 async function main() {
   const response = await client.chat.completions.create({
-    model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model: "openai-gpt-oss-20b",
     messages: [
       { role: "system", content: "You are a helpful assistant." },
       { role: "user", content: "What is DigitalOcean Spaces used for?" },
@@ -108,7 +108,7 @@ All three examples return the same structure:
 {
   "id": "chatcmpl-...",
   "object": "chat.completion",
-  "model": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  "model": "openai-gpt-oss-20b",
   "choices": [
     {
       "index": 0,

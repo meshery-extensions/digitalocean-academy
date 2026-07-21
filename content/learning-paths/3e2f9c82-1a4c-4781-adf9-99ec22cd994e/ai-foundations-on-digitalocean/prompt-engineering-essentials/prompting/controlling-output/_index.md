@@ -31,7 +31,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-70B-Instruct",
+    model="llama3.3-70b-instruct",
     messages=[
         {
             "role": "system",
@@ -69,7 +69,7 @@ Write a one-paragraph executive summary.
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Explain VPC peering."}],
     max_tokens=100,
 )
@@ -104,7 +104,7 @@ A practical pattern for a classification endpoint:
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-70B-Instruct",
+    model="llama3.3-70b-instruct",
     messages=[
         {"role": "system", "content": (
             "You are a ticket classifier. "

@@ -17,9 +17,9 @@ A **Gradient AI Platform agent** is a fully managed AI system that combines a fo
 Every agent is backed by a foundation model from the Model Catalog. You choose the model when you create the agent. The model determines the agent's baseline capabilities, context window, and cost per inference.
 
 Common choices:
-- Llama 3.1 70B Instruct — strong general-purpose reasoning
-- Llama 3.1 8B Instruct — lower latency and cost for simpler tasks
-- Claude or GPT-4o — frontier quality for demanding use cases (early access)
+- Llama 3.3 70B Instruct — strong general-purpose reasoning
+- GPT-OSS 20B — lower latency and cost for simpler tasks
+- Claude or GPT frontier models — highest quality for demanding use cases
 
 The model can be changed after creation, but changing it resets any cached context.
 
@@ -69,7 +69,7 @@ Every published agent gets a unique HTTPS endpoint:
 https://<agent-id>.agents.do-ai.run
 ```
 
-The endpoint is OpenAI-compatible. Append `/v1/chat/completions` to call it from any OpenAI SDK. Requests are authenticated with an **agent access key** passed as the bearer token.
+The endpoint is OpenAI-compatible. Append `/api/v1/chat/completions` to call it from any OpenAI SDK. Requests are authenticated with an **endpoint access key** (also called an agent access key) passed as the bearer token.
 
 ### Versioning and Insights
 

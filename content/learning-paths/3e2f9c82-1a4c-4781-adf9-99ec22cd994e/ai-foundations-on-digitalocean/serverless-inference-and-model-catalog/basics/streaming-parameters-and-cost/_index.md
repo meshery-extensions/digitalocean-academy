@@ -26,7 +26,7 @@ client = OpenAI(
 )
 
 stream = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Explain RAG in three sentences."}],
     stream=True,
 )
@@ -52,7 +52,7 @@ Controls randomness. Range: `0.0` to `2.0`.
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Write a tagline for a cloud company."}],
     temperature=0.9,
 )
@@ -71,7 +71,7 @@ Caps the number of tokens the model generates in the response. This is the prima
 
 ```python
 response = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="openai-gpt-oss-20b",
     messages=[{"role": "user", "content": "Summarize object storage in one sentence."}],
     max_tokens=60,
     temperature=0.3,
@@ -92,7 +92,7 @@ Serverless Inference is billed per token. The `usage` object in every non-stream
 }
 ```
 
-Cost = `total_tokens` × price-per-token for the selected model. Larger models (70B+) have higher per-token rates than smaller models (7B–8B).
+As a simplified estimate, cost scales with `total_tokens` for the selected model. Actual billing is more granular: input (`prompt_tokens`) and output (`completion_tokens`) are priced at different per-token rates, and cached input tokens are billed at a discount — so a precise figure is `prompt_tokens × input_rate + completion_tokens × output_rate` (minus any cache savings). Larger models have higher per-token rates than smaller ones. Check the current per-model rates in the pricing docs.
 
 ## Tips to Control Spend
 

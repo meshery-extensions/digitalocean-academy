@@ -36,7 +36,7 @@ Start with the simplest service that meets your requirements and move toward mor
 **Step 1 — Do you need a custom model runtime?**
 Yes → GPU Droplets or DOKS. No → continue.
 
-**Step 2 — Is one of the 70+ catalog models sufficient?**
+**Step 2 — Is one of the catalog models sufficient?**
 Yes → Serverless Inference or Gradient AI Platform. No → 1-Click Models or GPU Droplets for custom weights.
 
 **Step 3 — Do you need agent features (RAG, routing, guardrails, versioning)?**
