@@ -1,0 +1,629 @@
+# ECommerce Reference Architecture v2
+#
+# A complete, deployable microservices reference architecture for an AI-augmented
+# storefront on DigitalOcean Kubernetes (DOKS). Rendered as a Meshery Design and
+# embedded in the "Catalog & Reusable Templates" lesson.
+#
+# 15 Deployments + 13 Services in the `ecommerce` namespace, including the
+# DigitalOcean-flavoured edges of the stack: `gradient-ai` (Gradient AI inference
+# behind the recommendation path), `do-spaces` (object storage), and `opensearch`
+# (product search).
+#
+#   kubectl apply -f designs/ecommerce-reference-architecture.yaml
+#   mesheryctl design import -f designs/ecommerce-reference-architecture.yaml -s "Kubernetes Manifest"
+#
+# Education-focused: images are placeholders, replicas are 1, and there are no
+# resource limits, probes, or network policy. Harden before any production use.
+#
+# Deliberately NOT production patterns, called out so they are not copied:
+#   - `postgres` sets POSTGRES_PASSWORD inline. Real deployments must source it
+#     from a Secret (or DigitalOcean Managed Databases) and never from plain env.
+#   - No PersistentVolumeClaims: `postgres`, `redis`, and `opensearch` are
+#     ephemeral here and lose their data on restart.
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/part-of: ecommerce
+  name: ecommerce
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: analytics-worker
+    tier: events
+  name: analytics-worker
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analytics-worker
+  template:
+    metadata:
+      labels:
+        app: analytics-worker
+        tier: events
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - sleep infinity
+        image: busybox:1.36
+        name: worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-gateway
+    tier: edge
+  name: api-gateway
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+        tier: edge
+    spec:
+      containers:
+      - image: nginx:1.27-alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-service
+    tier: app
+  name: auth-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=auth
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: auth
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: auth-service
+    tier: app
+  name: auth-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: auth-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cart-service
+    tier: app
+  name: cart-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-service
+  template:
+    metadata:
+      labels:
+        app: cart-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=cart
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: cart
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cart-service
+    tier: app
+  name: cart-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: cart-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: do-spaces
+    tier: shared
+  name: do-spaces
+  namespace: ecommerce
+spec:
+  externalName: blr1.digitaloceanspaces.com
+  type: ExternalName
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: email-worker
+    tier: events
+  name: email-worker
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email-worker
+  template:
+    metadata:
+      labels:
+        app: email-worker
+        tier: events
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - sleep infinity
+        image: busybox:1.36
+        name: worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fraud-check-worker
+    tier: events
+  name: fraud-check-worker
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fraud-check-worker
+  template:
+    metadata:
+      labels:
+        app: fraud-check-worker
+        tier: events
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - sleep infinity
+        image: busybox:1.36
+        name: worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+    tier: edge
+  name: frontend
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: edge
+    spec:
+      containers:
+      - image: nginx:1.27-alpine
+        name: frontend
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: frontend
+    tier: edge
+  name: frontend
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+  selector:
+    app: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gradient-ai
+    tier: shared
+  name: gradient-ai
+  namespace: ecommerce
+spec:
+  externalName: inference.do-ai.run
+  type: ExternalName
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: inventory-sync-worker
+    tier: events
+  name: inventory-sync-worker
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-sync-worker
+  template:
+    metadata:
+      labels:
+        app: inventory-sync-worker
+        tier: events
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - sleep infinity
+        image: busybox:1.36
+        name: worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: message-queue
+    tier: events
+  name: message-queue
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message-queue
+  template:
+    metadata:
+      labels:
+        app: message-queue
+        tier: events
+    spec:
+      containers:
+      - image: rabbitmq:3-alpine
+        name: rabbitmq
+        ports:
+        - containerPort: 5672
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: message-queue
+    tier: events
+  name: message-queue
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 5672
+    protocol: TCP
+  selector:
+    app: message-queue
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: opensearch
+    tier: shared
+  name: opensearch
+  namespace: ecommerce
+spec:
+  externalName: opensearch.example-managed.db.ondigitalocean.com
+  type: ExternalName
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: order-service
+    tier: app
+  name: order-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=order
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: order
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: order-service
+    tier: app
+  name: order-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: order-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: payment-service
+    tier: app
+  name: payment-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=payment
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: payment
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: payment-service
+    tier: app
+  name: payment-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: payment-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+    tier: data
+  name: postgres
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+        tier: data
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: ecommerce-demo
+        image: postgres:16-alpine
+        name: postgres
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgres
+    tier: data
+  name: postgres
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: product-service
+    tier: app
+  name: product-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=product
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: product
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: product-service
+    tier: app
+  name: product-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: product-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: recommendation-service
+    tier: app
+  name: recommendation-service
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendation-service
+  template:
+    metadata:
+      labels:
+        app: recommendation-service
+        tier: app
+    spec:
+      containers:
+      - args:
+        - -text=recommendation
+        - -listen=:8080
+        image: hashicorp/http-echo:1.0
+        name: recommendation
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: recommendation-service
+    tier: app
+  name: recommendation-service
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: recommendation-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+    tier: data
+  name: redis
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        tier: data
+    spec:
+      containers:
+      - image: redis:7-alpine
+        name: redis
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+    tier: data
+  name: redis
+  namespace: ecommerce
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+  selector:
+    app: redis

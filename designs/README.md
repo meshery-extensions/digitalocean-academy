@@ -12,6 +12,7 @@ Cluster with Meshery* challenge. Each file is valid Kubernetes YAML, so it can b
 | vLLM GPU inference stack | [`vllm-inference-stack.yaml`](vllm-inference-stack.yaml) | An OpenAI-compatible LLM server on a DOKS GPU node pool (Namespace + Deployment requesting `nvidia.com/gpu` + Service) |
 | Qdrant vector database | [`qdrant-vector-db.yaml`](qdrant-vector-db.yaml) | A Qdrant vector DB for RAG, backed by DigitalOcean Block Storage (Namespace + headless Service + StatefulSet with a `do-block-storage` PVC) |
 | GPU observability stack | [`gpu-observability-stack.yaml`](gpu-observability-stack.yaml) | The NVIDIA DCGM exporter DaemonSet + Service exposing GPU metrics for Prometheus/Grafana |
+| ECommerce reference architecture | [`ecommerce-reference-architecture.yaml`](ecommerce-reference-architecture.yaml) | A 28-component AI-augmented storefront (Namespace + 15 Deployments + 13 Services), including `gradient-ai` inference, `do-spaces` object storage, and an `opensearch` product index |
 
 ## Prerequisites
 
