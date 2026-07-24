@@ -1,0 +1,20 @@
+name: preview-build-pr
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: preview-build-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/preview-build.yml
+    with:
+      deployment-url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}

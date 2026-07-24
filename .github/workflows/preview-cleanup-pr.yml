@@ -1,0 +1,22 @@
+name: preview-cleanup-pr
+
+on:
+  pull_request_target:
+    branches: [master]
+    types: [closed]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: preview-cleanup-pr
+  cancel-in-progress: true
+
+jobs:
+  clean:
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: ./.github/workflows/preview-clean.yml
+    with:
+      retention_limit: 6

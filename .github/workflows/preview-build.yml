@@ -1,0 +1,69 @@
+name: preview-build
+
+on:
+  workflow_call:
+    inputs:
+      deployment-url:
+        description: Base URL of the calling repo's GitHub Pages site, no trailing slash (e.g. https://owner.github.io/repo).
+        required: true
+        type: string
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3.2.1
+        with:
+          hugo-version: '0.158.0'
+          extended: true
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build preview
+        env:
+          BASE_URL: ${{ inputs.deployment-url }}/pr-preview/pr-${{ github.event.pull_request.number }}/
+        run: |
+          set -euo pipefail
+          hugo \
+            --cleanDestinationDir \
+            --environment dev \
+            --buildDrafts \
+            --buildFuture \
+            --buildExpired \
+            --minify \
+            --baseURL "$BASE_URL"
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-site
+          path: public
+          retention-days: 1
+          if-no-files-found: error

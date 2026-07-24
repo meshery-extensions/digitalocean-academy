@@ -1,0 +1,154 @@
+name: preview-clean
+
+on:
+  workflow_call:
+    inputs:
+      retention_limit:
+        description: Maximum number of PR previews to keep on gh-pages.
+        required: false
+        type: number
+        default: 6
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  clean:
+    if: contains(fromJSON('["pull_request_target", "schedule", "workflow_dispatch"]'), github.event_name)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # Push removals to gh-pages.
+      pull-requests: write # Notify PRs whose preview was removed.
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+          sparse-checkout: pr-preview
+
+      - name: Reconcile previews
+        id: reconcile
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO_FULL: ${{ github.repository }}
+          RETENTION_LIMIT: ${{ inputs.retention_limit }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          reconcile() {
+            git fetch origin gh-pages
+            git reset --hard origin/gh-pages
+            : > "${RUNNER_TEMP}/closed.txt"
+            : > "${RUNNER_TEMP}/pruned.txt"
+
+            for dir in pr-preview/*/; do
+              name="$(basename "$dir")"
+              if [[ ! "$name" =~ ^pr-([0-9]+)$ ]]; then
+                echo "Removing unexpected entry: $dir"
+                rm -rf "$dir"
+                continue
+              fi
+              n="${BASH_REMATCH[1]}"
+              state="$(gh api "repos/${GH_REPO_FULL}/pulls/${n}" --jq .state 2>/dev/null || echo missing)"
+              if [[ "$state" != "open" ]]; then
+                echo "Removing preview for PR #${n} (state: ${state})"
+                rm -rf "$dir"
+                echo "$n" >> "${RUNNER_TEMP}/closed.txt"
+              fi
+            done
+            mapfile -t remaining < <(
+              for dir in pr-preview/pr-*/; do
+                name="$(basename "$dir")"
+                ts="$(git log -1 --format=%ct -- "pr-preview/$name" 2>/dev/null || echo 0)"
+                printf '%s %s\n' "$ts" "$name"
+              done | sort -nr | awk '{print $2}'
+            )
+            if (( ${#remaining[@]} > RETENTION_LIMIT )); then
+              for name in "${remaining[@]:RETENTION_LIMIT}"; do
+                echo "Pruning ${name} to stay within retention limit ${RETENTION_LIMIT}"
+                rm -rf "pr-preview/${name}"
+                echo "${name#pr-}" >> "${RUNNER_TEMP}/pruned.txt"
+              done
+            fi
+
+            git add -A pr-preview
+            if git diff --cached --quiet; then
+              echo "Nothing to clean."
+              return 0
+            fi
+            git commit -m "clean up PR previews"
+            git push origin gh-pages
+          }
+
+          ok=""
+          for attempt in 1 2 3 4 5; do
+            if reconcile; then ok=1; break; fi
+            echo "Push rejected (attempt ${attempt}); retrying against new tip"
+            sleep "$(( RANDOM % 4 + 1 ))"
+          done
+          [[ -n "$ok" ]] || { echo "Failed to clean after 5 attempts"; exit 1; }
+
+          to_json() { grep -v '^$' "$1" 2>/dev/null | jq -R . | jq -sc . ; }
+          echo "closed_prs=$(to_json "${RUNNER_TEMP}/closed.txt")" >> "$GITHUB_OUTPUT"
+          echo "pruned_prs=$(to_json "${RUNNER_TEMP}/pruned.txt")" >> "$GITHUB_OUTPUT"
+
+      - name: Notify affected pull requests
+        continue-on-error: true
+        if: steps.reconcile.outputs.closed_prs != '[]' || steps.reconcile.outputs.pruned_prs != '[]'
+        uses: actions/github-script@v7
+        env:
+          CLOSED_PRS: ${{ steps.reconcile.outputs.closed_prs }}
+          PRUNED_PRS: ${{ steps.reconcile.outputs.pruned_prs }}
+          RETENTION_LIMIT: ${{ inputs.retention_limit }}
+        with:
+          script: |
+            const marker = '<!-- pr-preview-comment -->';
+            const upsert = async (prNumber, body) => {
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                per_page: 100,
+              });
+              const existing = [...comments].reverse().find(
+                (c) => c.user?.type === 'Bot' && c.body?.includes(marker),
+              );
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                  body,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body,
+                });
+              }
+            };
+            const limit = process.env.RETENTION_LIMIT;
+            for (const pr of JSON.parse(process.env.CLOSED_PRS || '[]')) {
+              await upsert(
+                Number(pr),
+                `🧹 Preview removed — this pull request is closed.\n${marker}`,
+              );
+            }
+            for (const pr of JSON.parse(process.env.PRUNED_PRS || '[]')) {
+              await upsert(
+                Number(pr),
+                `🧹 Preview removed to keep only the ${limit} most recently ` +
+                  `updated previews on GitHub Pages.\n\n` +
+                  `Push a new commit to regenerate it.\n${marker}`,
+              );
+            }

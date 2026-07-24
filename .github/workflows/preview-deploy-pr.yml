@@ -1,0 +1,25 @@
+name: preview-deploy-pr
+
+on:
+  workflow_run:
+    workflows: [preview-build-pr]
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  group: preview-deploy-pr-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    uses: ./.github/workflows/preview-deploy.yml
+    with:
+      deployment-url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
