@@ -32,14 +32,13 @@ Academies are modular, Git-native learning management systems (LMS), which can b
 
 ## 🛠️ Prerequisites
 
-Before you begin, ensure you have the following installed:
-
 | Tool | Version | Link |
 |------|---------|------|
-| **Hugo** (extended) | ≥ 0.156.0 | [Install Hugo](https://gohugo.io/getting-started/installing/) |
-| **Go** | ≥ 1.24 | [Install Go](https://go.dev/doc/install) |
+| **Go** | see go.mod | [Install Go](https://go.dev/doc/install) |
 | **Node.js / npm** | LTS | [Install Node.js](https://nodejs.org/) |
 | **Git** | Latest | [Install Git](https://git-scm.com/) |
+
+*(Note: Hugo Extended is managed locally via npm and does not need to be installed globally.)*
 
 ---
 
@@ -56,18 +55,12 @@ cd digitalocean-academy
 ### 2. Install Dependencies
 
 ```bash
-npm install
+make setup
 ```
 
 ### 3. Run the Site Locally
 
 Start the Hugo development server with drafts and future content enabled:
-
-```bash
-hugo server -D
-```
-
-Or use the Makefile target (includes draft **and** future content):
 
 ```bash
 make site
@@ -82,11 +75,16 @@ The site will be available at `http://localhost:1313/academy/` (or the port show
 | Command | Description |
 |---------|-------------|
 | `make setup` | Install npm dependencies |
-| `make site`  | Build and run site locally with draft and future content enabled |
-| `make build` | Build the site for production |
-| `make build-preview` | Build site for preview draft and future content enabled (honors `BASEURL`) |
-| `make clean` | Clear build cache and restart the dev server |
+| `make site` | Build and run site locally with live reload (draft and future content enabled) |
+| `make serve` | Build and serve the site once with the file watcher off (no live reload) |
+| `make build` | Build the site locally with draft and future content enabled |
+| `make build-preview` | Build the site for a deploy preview (honors `DEPLOY_PRIME_URL`) |
+| `make build-production` | Build the site for production (pass `BASE_URL=...` to set the base URL) |
+| `make clean` | Empty the build cache, reinstall dependencies, and run the site locally |
+| `make lint` | Check Markdown for linting issues |
 | `make lint-fix` | Fix Markdown linting issues with `markdownlint-cli2` |
+| `make check-links` | Check internal links in the built site |
+| `make check-deps` | Verify required commands and local dependencies are present |
 | `make check-go` | Verify Go is installed locally |
 | `make theme-update` | Update the `academy-theme` Hugo module to the latest version |
 
