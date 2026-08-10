@@ -40,7 +40,7 @@
     "autoprefixer": "^10.5.0",
     "hugo-extended": "0.158.0",
     "markdownlint-cli2": "^0.18.1",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.26",
     "postcss-cli": "^11.0.1"
   }
 }
