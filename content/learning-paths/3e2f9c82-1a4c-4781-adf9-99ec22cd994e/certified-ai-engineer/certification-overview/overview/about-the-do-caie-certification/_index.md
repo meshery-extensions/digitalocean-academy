@@ -42,7 +42,7 @@ A certified DO-CAIE holder can:
 
 The credential has two parts that must both be passed:
 
-1. A **written exam** (multiple-choice and scenario questions) — pass mark **70%**.
+1. A **written exam** (multiple-choice: single- and multiple-answer questions) - pass mark **70%**.
 2. A **hands-on capstone** project, graded against a published rubric.
 
 ## Recommended preparation
