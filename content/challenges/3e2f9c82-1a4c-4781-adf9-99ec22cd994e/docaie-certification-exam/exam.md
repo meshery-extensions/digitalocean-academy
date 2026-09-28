@@ -35,21 +35,21 @@ questions:
     correct_answer: "a,b,c"
 
   - id: "q2"
-    text: "Which layers make up the AI-Native Cloud alongside infrastructure and inference? (Select all that apply.)"
+    text: "Which statements correctly place academy services in the AI-Native Cloud layers? (Select all that apply.)"
     type: "multiple-answers"
     marks: 3
     options:
       - id: "a"
-        text: "Core cloud"
+        text: "GPU Droplets and Spaces sit in the infrastructure layer"
         is_correct: true
       - id: "b"
-        text: "Data"
+        text: "Serverless inference and the Inference Router sit in the inference layer"
         is_correct: true
       - id: "c"
-        text: "Managed agents"
+        text: "Knowledge bases and RAG pipelines sit in the data layer"
         is_correct: true
       - id: "d"
-        text: "Third-party billing broker"
+        text: "DOKS is a layer of its own outside the five layers"
     correct_answer: "a,b,c"
 
   - id: "q3"
@@ -283,7 +283,7 @@ questions:
     correct_answer: "a"
 
   - id: "q17"
-    text: "You can practice the same chat completion three ways in the AI Foundations path. Which three interfaces are used?"
+    text: "Which option lists the three interfaces used to practice the same chat completion in the AI Foundations path?"
     type: "single-answer"
     marks: 2
     options:
@@ -368,7 +368,7 @@ questions:
     correct_answer: "a,b,c"
 
   - id: "q22"
-    text: "Which two ways of building a Gradient agent does the platform support?"
+    text: "Which option lists the two ways of building a Gradient agent that the platform supports?"
     type: "single-answer"
     marks: 2
     options:
@@ -464,21 +464,21 @@ questions:
     correct_answer: "a"
 
   - id: "q28"
-    text: "Which sampling parameters can you tune on a Gradient agent's base model? (Select all that apply.)"
+    text: "Which statements about sampling and cost controls on a Gradient agent's base model are true? (Select all that apply.)"
     type: "multiple-answers"
     marks: 3
     options:
       - id: "a"
-        text: "temperature"
+        text: "max_tokens bounds the maximum length of the generated response"
         is_correct: true
       - id: "b"
-        text: "max tokens"
+        text: "top_p controls sampling by restricting the probability mass considered"
         is_correct: true
       - id: "c"
-        text: "top_p"
+        text: "Measuring the tokens used per response helps manage spend"
         is_correct: true
       - id: "d"
-        text: "The Kubernetes node selector"
+        text: "Sampling parameters retrain the base model's weights"
     correct_answer: "a,b,c"
 
   # --- Domain 4 - Knowledge Bases & RAG (14%) ---
@@ -626,7 +626,7 @@ questions:
         text: "Hugging Face"
         is_correct: true
       - id: "b"
-        text: "Microsoft Excel"
+        text: "Docker Hub"
       - id: "c"
         text: "Oracle Forms"
       - id: "d"
@@ -914,7 +914,7 @@ questions:
         text: "Dedicated"
         is_correct: true
       - id: "d"
-        text: "Telegraph"
+        text: "Edge caching"
     correct_answer: "a,b,c"
 
   - id: "q55"
@@ -1354,12 +1354,12 @@ questions:
     correct_answer: "a,b,c"
 
   - id: "q81"
-    text: "A knowledge base can be exposed to an agent as which kind of tool?"
+    text: "How is a knowledge base attached to a Gradient agent so its answers can use private data?"
     type: "single-answer"
     marks: 2
     options:
       - id: "a"
-        text: "An MCP tool"
+        text: "Attached for retrieval, grounding answers with citations"
         is_correct: true
       - id: "b"
         text: "A Cloud Firewall"
@@ -1620,7 +1620,7 @@ questions:
     correct_answer: "a"
 
   - id: "q97"
-    text: "Which two serving approaches in the GPU path both result in an OpenAI-compatible endpoint?"
+    text: "Which option lists the two serving approaches in the GPU path that both result in an OpenAI-compatible endpoint?"
     type: "single-answer"
     marks: 2
     options:
@@ -1650,7 +1650,7 @@ questions:
         text: "Context-length limits"
         is_correct: true
       - id: "d"
-        text: "The color of the Control Panel theme"
+        text: "The host's operating-system kernel version"
     correct_answer: "a,b,c"
 
   - id: "q99"
@@ -1681,11 +1681,10 @@ questions:
         text: "QLoRA"
         is_correct: true
       - id: "c"
-        text: "PEFT methods generally"
-        is_correct: true
+        text: "Full fine-tuning of all model weights"
       - id: "d"
         text: "Deleting the dataset"
-    correct_answer: "a,b,c"
+    correct_answer: "a,b"
 
   - id: "q101"
     text: "Where does the GPU path recommend storing datasets and model artifacts for fine-tuning?"
@@ -1712,7 +1711,7 @@ questions:
         text: "llm-d and KServe"
         is_correct: true
       - id: "b"
-        text: "Excel and Access"
+        text: "Kubeflow and MLflow"
       - id: "c"
         text: "SOAP and WSDL"
       - id: "d"
@@ -1817,7 +1816,7 @@ questions:
         text: "Optionally an Ingress for external access"
         is_correct: true
       - id: "d"
-        text: "A billing invoice PDF"
+        text: "A Prometheus alerting rule"
     correct_answer: "a,b,c"
 
   - id: "q109"
@@ -1934,7 +1933,7 @@ questions:
         text: "A/B and canary across models with fallback chains"
         is_correct: true
       - id: "d"
-        text: "Physically manufacturing GPUs"
+        text: "Hardware-level GPU overclocking"
     correct_answer: "a,b,c"
 
   - id: "q116"
@@ -2340,7 +2339,7 @@ questions:
     correct_answer: "a"
 
   - id: "q140"
-    text: "Which are valid tools/extensions you can give a Gradient agent? (Select all that apply.)"
+    text: "Which are valid extensions you can give a Gradient agent (tools and retrieval)? (Select all that apply.)"
     type: "multiple-answers"
     marks: 3
     options:
@@ -2351,7 +2350,7 @@ questions:
         text: "A function route calling an external REST API"
         is_correct: true
       - id: "c"
-        text: "A knowledge base exposed as an MCP tool"
+        text: "A knowledge base attached for retrieval (grounding)"
         is_correct: true
       - id: "d"
         text: "A block-storage volume mounted as its brain"
@@ -2471,7 +2470,7 @@ questions:
         text: "Google Drive"
         is_correct: true
       - id: "d"
-        text: "A physical fax machine"
+        text: "A private Git repository"
     correct_answer: "a,b,c"
 
   - id: "q148"
@@ -2704,7 +2703,7 @@ questions:
         text: "Error rate under load"
         is_correct: true
       - id: "d"
-        text: "The Control Panel's font size"
+        text: "The number of Control Panel users"
     correct_answer: "a,b,c"
 
   - id: "q162"
