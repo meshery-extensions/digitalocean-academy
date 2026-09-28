@@ -11,8 +11,8 @@ both to earn the credential.
 
 ## Written exam structure
 
-- **Format:** multiple-choice (single- and multiple-answer) plus short scenario questions.
-- **Questions:** 60 scored questions.
+- **Format:** multiple-choice only - single-answer and multiple-answer questions.
+- **Questions:** 60 scored questions, drawn from a larger pool.
 - **Duration:** 90 minutes.
 - **Pass mark:** 70%.
 - **Delivery:** online, proctored, taken directly inside the academy.
@@ -45,7 +45,7 @@ written exam earns the credential.
 
 - Each written question is worth a fixed number of marks; multiple-answer questions require **all**
   correct options and **no** incorrect ones for full marks.
-- Scenario questions are auto-graded against expected answers.
+- Every question is auto-graded against its correct answer(s).
 - Your final written score is the percentage of total marks earned. **70%** or higher passes.
 - The capstone is pass/fail against the rubric, with reviewer feedback.
 

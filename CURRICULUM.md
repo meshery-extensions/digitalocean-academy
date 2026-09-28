@@ -209,7 +209,7 @@ ship a first managed agent.
 
 ## Certification — DigitalOcean Certified AI Engineer (DO‑CAIE)
 
-**Format:** Multiple‑choice + scenario questions and a hands‑on capstone ·
+**Format:** Multiple‑choice (single‑ and multiple‑answer) questions and a hands‑on capstone ·
 **Pass mark:** 70% on the written exam **and** a passing capstone submission ·
 **Recommended prep:** Learning Paths 1–5.
 

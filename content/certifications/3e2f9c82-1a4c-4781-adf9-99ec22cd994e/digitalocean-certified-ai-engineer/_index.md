@@ -114,7 +114,7 @@ related_resources:
 additional_attributes:
   - title: "Exam Format"
     value: "60 questions"
-    description: "Multiple-choice and scenario questions; 90 minutes; proctored online"
+    description: "Multiple-choice (single- and multiple-answer) questions; 90 minutes; proctored online"
   - title: "Pass Mark"
     value: "70%"
     description: "On the written exam, plus a passing hands-on capstone"
@@ -140,8 +140,8 @@ on GPU infrastructure, and operating it all with [Meshery](https://meshery.io/) 
 
 The credential has two required parts:
 
-1. A **written exam** — 60 multiple-choice and scenario questions across the seven domains above
-   (90 minutes, proctored). Pass mark **70%**.
+1. A **written exam** - 60 multiple-choice (single- and multiple-answer) questions across the seven
+   domains above (90 minutes, proctored), drawn from a larger pool. Pass mark **70%**.
 2. A **hands-on capstone** — an end-to-end agentic application served on GPU infrastructure and
    operated with Meshery, graded against a published rubric.
 
