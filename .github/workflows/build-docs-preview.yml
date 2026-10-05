@@ -5,13 +5,20 @@ on:
     branches: [master]
     types: [opened, synchronize, reopened, closed]
     paths:
+      - 'assets/**'
       - 'content/**'
+      - 'layouts/**'
       - '**.md'
       - '**.go'
       - 'hugo.yaml'
+      - 'go.mod'
+      - 'go.sum'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'postcss.config.js'
       - '.github/workflows/build-docs-preview.yml'
       - '.github/workflows/deploy-docs-preview.yml'
-      - '.github/workflows/docs-preview-cleanup.yml'
+      - '.github/workflows/cleanup-docs-preview.yml'
 
 permissions:
   contents: read
@@ -23,7 +30,6 @@ concurrency:
 jobs:
   build-docs-preview:
     runs-on: ubuntu-24.04
-    if: github.event.action != 'closed'
     # env:
     #   HUGO_VERSION: 0.158.0
 
@@ -68,16 +74,19 @@ jobs:
       #     dart-sass --version
 
       - name: Setup Go
+        if: github.event.action != 'closed'
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: go.mod
 
       - name: Setup Node
+        if: github.event.action != 'closed'
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: "22"
 
       - name: Install dependencies
+        if: github.event.action != 'closed'
         run: |
           if [ -f package-lock.json ]; then
             npm ci
@@ -86,6 +95,7 @@ jobs:
           fi
 
       - name: Build PR preview
+        if: github.event.action != 'closed'
         env:
           HUGO_PREVIEW: "true"
           DEPLOY_PRIME_URL: "/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/"
@@ -96,18 +106,20 @@ jobs:
           Disallow: /
           ROBOTS
 
+      # preview/ wraps pr/ and public/ so the upload has a single path. With multiple paths,
+      # upload-artifact roots at their common ancestor, so on closed events (no public/)
+      # pr/ would become the root and downstream reads of pr/* would fail.
       - name: Save PR Metadata
         run: |
-          mkdir -p ./pr
-          echo "${{ github.event.number }}" > ./pr/number
-          echo "${{ github.event.pull_request.head.sha }}" > ./pr/sha
-          echo "${{ github.event.action }}" > ./pr/action
+          mkdir -p preview/pr
+          echo "${{ github.event.number }}" > preview/pr/number
+          echo "${{ github.event.pull_request.head.sha }}" > preview/pr/sha
+          echo "${{ github.event.action }}" > preview/pr/action
+          if [ -d public ]; then mv public preview/public; fi
 
       - name: Upload build artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: docs-preview-build
-          path: |
-            ${{ github.event.action != 'closed' && 'public' || '' }}
-            pr/
+          path: preview/
           if-no-files-found: error
